@@ -2,6 +2,9 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AuthController } from './auth/auth.controller';
+import { AuthService } from './auth/auth.service';
+import { User } from './user/user.entity';
 
 @Module({
   imports: [
@@ -11,10 +14,12 @@ import { AppService } from './app.service';
       port: 3306,
       username: 'root',
       database: 'login_crud_user',
-      synchronize: true
-    })  // Criando conexão com o banco de dados e atributos da conexão dentro do objeto
+      synchronize: true,
+      autoLoadEntities: true
+    }), // Criando conexão com o banco de dados e atributos da conexão dentro do objeto
+      TypeOrmModule.forFeature([User])
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, AuthController],
+  providers: [AppService, AuthService],
 })
 export class AppModule {}

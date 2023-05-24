@@ -35,4 +35,6 @@ async login(loginDto: LoginDto) {
 
         return jwt.sign(payload, secretKey, {expiresIn});
    
+    }
+
 }
